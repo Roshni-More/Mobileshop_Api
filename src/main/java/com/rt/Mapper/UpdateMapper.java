@@ -10,11 +10,11 @@ public class UpdateMapper {
 
 
 	public UpdateResponseDTO toDto(ProductEntity productuser) {
-		return new UpdateResponseDTO(productuser.getId(),productuser.getName(),productuser.getBrand(),productuser.getImei(),productuser.getStock(),productuser.getPurchasePrice(),productuser.getSellingPrice());
+		return new UpdateResponseDTO(productuser.getId(),productuser.getName(),productuser.getBrand(),productuser.getImei());
 		
 	}
 	public ProductEntity toEntity(UpdateRequestDTO updatedto) {
-		return new ProductEntity( updatedto.getId(),updatedto.getName(),updatedto.getBrand(),updatedto.getImei(),updatedto.getStock(),updatedto.getPurchasePrice(),updatedto.getSellingPrice());
+		return new ProductEntity( updatedto.getId(),updatedto.getName(),updatedto.getBrand(),updatedto.getImei());
 		
 	}
 		

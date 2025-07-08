@@ -10,33 +10,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="products")
-public class ProductEntity {
+@Table(name="vendor")
+public class Vendor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int vendorid;
 	@Column
-	private String name;
+	private String vendorname;
 	@Column
-    private String brand;
-	@Column
-    private String imei;
-	
+    private String mobileno;
 
-	public ProductEntity(String name, String brand, String imei) {
-		super();
-		this.name = name;
-		this.brand = brand;
-		this.imei = imei;
-		
-		
-	}
-
-	
-	
 }

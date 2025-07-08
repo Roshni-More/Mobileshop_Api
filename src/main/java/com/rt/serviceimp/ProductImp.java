@@ -41,9 +41,7 @@ public class ProductImp implements ProductInterface{
 	        dto.setName(entity.getName());
 	        dto.setBrand(entity.getBrand());
 	        dto.setImei(entity.getImei());
-	        dto.setStock(entity.getStock());
-	        dto.setPurchasePrice(entity.getPurchasePrice());
-	        dto.setSellingPrice(entity.getSellingPrice());
+	       
 
 	        dtoList.add(dto);
 	    }
