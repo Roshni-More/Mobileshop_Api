@@ -12,8 +12,5 @@ public class UpdateRequestDTO {
 	private String name;
     private String brand;
     private String imei;
-    private int stock;
-    private float purchasePrice;
-    private float sellingPrice;
-	
+    
 }

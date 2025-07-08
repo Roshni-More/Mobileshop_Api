@@ -5,12 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequestDTO {
+@AllArgsConstructor
+public class VendorRequestDto {
 
-	private String name;
-    private String brand;
-    private String imei;
-   
+	
+	private String vendorname;
+	private String mobileno;
 }
