@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rt.DTO.PurchaseRequestDTO;
@@ -33,6 +34,18 @@ public class PurchaseController {
 	        List<PurchaseRespDTO> purchaseData = purchaseinterface.getAllPrducts();
 	        System.out.println("Purchases " + purchaseData);
 	        return purchaseData;
+	    }
+	 // 🔹 Get purchase by ID using @RequestParam
+	    @GetMapping("/getById")
+	    public PurchaseRespDTO getPurchaseById(@RequestParam("id") int id) {
+	        return purchaseinterface.getPurchaseById(id);
+	    }
+
+	    // 🔹 Update purchase
+	    @PostMapping("/update")
+	    public PurchaseRespDTO updatePurchase(@RequestBody PurchaseRequestDTO  dto) {
+	    	 return purchaseinterface.updatePurchase(dto);
+	        
 	    }
 	
 }
