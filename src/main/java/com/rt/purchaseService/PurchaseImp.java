@@ -2,12 +2,13 @@ package com.rt.purchaseService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.rt.DTO.PurchaseRequestDTO;
 import com.rt.DTO.PurchaseRespDTO;
+
 import com.rt.Dao.ProductDao;
 import com.rt.Dao.PurchaseDao;
 import com.rt.Dao.VendorDao;
@@ -30,7 +31,8 @@ public class PurchaseImp implements PurchaseInterface {
 
     @Autowired
     private PurchaseMapper purchaseMapper;
-
+    
+    
     @Override
     public PurchaseRespDTO pruchasemanage(PurchaseRequestDTO purchaseRequestDTO) {
 
@@ -64,6 +66,7 @@ public class PurchaseImp implements PurchaseInterface {
     @Override
     public List<PurchaseRespDTO> getAllPrducts() {
         List<Purchase> entityList = purchasedao.findAll();
+        entityList.stream().forEach(n->System.out.println(n));
         List<PurchaseRespDTO> dtoList = new ArrayList<>();
 
         for (Purchase entity : entityList) {
@@ -72,4 +75,46 @@ public class PurchaseImp implements PurchaseInterface {
 
         return dtoList;
     }
+
+	@Override
+	public PurchaseRespDTO getPurchaseById(int id) {
+		Optional<Purchase> optionalProduct=purchasedao.findById(id);
+		if(optionalProduct.isPresent()) {
+			Purchase pruchaseentity=optionalProduct.get();
+			PurchaseRespDTO resdto=purchaseMapper.toDto(pruchaseentity);
+			return resdto;
+		}
+		return null;
+	}
+
+	@Override
+	public PurchaseRespDTO updatePurchase(PurchaseRequestDTO dto) {
+	    Optional<Purchase> optionalPurchase = purchasedao.findById(dto.getPurchaseid());
+	    if (optionalPurchase.isEmpty()) {
+	        throw new RuntimeException("Purchase ID not found: " + dto.getPurchaseid());
+	    }
+
+	    ProductEntity product = productDao.findById(dto.getProductId())
+	            .orElseThrow(() -> new RuntimeException("Product not found: " + dto.getProductId()));
+
+	    Vendor vendor = vendorDao.findById(dto.getVendorid())
+	            .orElseThrow(() -> new RuntimeException("Vendor not found: " + dto.getVendorid()));
+
+	    Purchase purchase = optionalPurchase.get();
+	    purchase.setProduct(product);
+	    purchase.setVendor(vendor);
+	    purchase.setQuantity(dto.getQuantity());
+	    purchase.setRate(dto.getRate());
+	    purchase.setTotal(dto.getQuantity() * dto.getRate());
+
+	    try {
+	        Purchase updatedPurchase = purchasedao.save(purchase);  // Save updated entity
+	        return purchaseMapper.toDto(updatedPurchase);           // ✅ Return DTO
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;  // ❌ Return null if error occurs
+	    }
+	}
+
+
 }

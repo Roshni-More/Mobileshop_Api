@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 public class PurchaseRespDTO {
 	  private int purchaseId;
+	  private int vendorid;
 	    private String vendorname;
 	    private String productName;
 	    private int quantity;

@@ -15,6 +15,7 @@ public class PurchaseMapper {
 		
     	PurchaseRespDTO p=new PurchaseRespDTO();
     	p.setPurchaseId(purchase.getPurchaseId());
+    	p.setVendorid(purchase.getVendor().getVendorid());
     	p.setVendorname(purchase.getVendor().getVendorname());
     	p.setProductName(purchase.getProduct().getName());
     	p.setQuantity(purchase.getQuantity());
