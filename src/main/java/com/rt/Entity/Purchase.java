@@ -26,6 +26,7 @@ public class Purchase {
     private ProductEntity product;
 
     private int quantity;
+    
     private float rate;
     private float sell;
     private float total;

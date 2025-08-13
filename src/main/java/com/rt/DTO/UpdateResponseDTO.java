@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateResponseDTO {
 	
-	private int id;
+	private int productId;
 	private String name;
     private String brand;
     private String imei;

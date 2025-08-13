@@ -23,8 +23,8 @@ public class UpdateImp implements UpdateInterface {
 	private UpdateMapper updatemapper;
 
 	@Override
-	public UpdateResponseDTO showUpdate(int id) {
-		Optional<ProductEntity> optionalProduct = productdao.findById(id);
+	public UpdateResponseDTO showUpdate(int productId) {
+		Optional<ProductEntity> optionalProduct = productdao.findById(productId);
 		if(optionalProduct.isPresent()) {
 			ProductEntity productentity=optionalProduct.get();
 			UpdateResponseDTO resdto=updatemapper.toDto(productentity);
@@ -38,16 +38,16 @@ public class UpdateImp implements UpdateInterface {
 		ProductEntity entity=updatemapper.toEntity(updatereqdto);
 		
 		ProductEntity dataadd=productdao.save(entity);
-		System.out.println("before updation id :"+updatereqdto.getId()+" after updation id :"+dataadd.getId());
+		System.out.println("before updation id :"+updatereqdto.getProductId()+" after updation id :"+dataadd.getProductId());
 		
 		UpdateResponseDTO respdto=updatemapper.toDto(dataadd);
 		return respdto;
 	}
 
 	@Override
-	public boolean deleteById(int id) {
-		 if (productdao.existsById(id)) {
-			 productdao.deleteById(id);
+	public boolean deleteById(int productId) {
+		 if (productdao.existsById(productId)) {
+			 productdao.deleteById(productId);
 	            return true;
 	        } else {
 		return false;

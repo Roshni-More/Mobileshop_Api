@@ -51,7 +51,7 @@ public class PurchaseImp implements PurchaseInterface {
         Purchase purchase = purchaseMapper.toEntity(purchaseRequestDTO,vendor,product);
         
         purchase.setTotal(purchase.getQuantity() * purchase.getRate()); // Calculate total
-
+        
         // ✅ Save purchase to DB
         Purchase savedPurchase = purchasedao.save(purchase);
 
@@ -106,6 +106,8 @@ public class PurchaseImp implements PurchaseInterface {
 	    purchase.setQuantity(dto.getQuantity());
 	    purchase.setRate(dto.getRate());
 	    purchase.setTotal(dto.getQuantity() * dto.getRate());
+	    
+	    purchase.setPurchaseDate(dto.getPurchaseDate());
 
 	    try {
 	        Purchase updatedPurchase = purchasedao.save(purchase);  // Save updated entity

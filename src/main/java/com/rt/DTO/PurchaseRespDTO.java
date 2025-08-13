@@ -22,4 +22,5 @@ public class PurchaseRespDTO {
 	    private float total;
 	    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	    private Date purchaseDate;
+	    
 }

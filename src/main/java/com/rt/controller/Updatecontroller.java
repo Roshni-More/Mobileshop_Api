@@ -24,8 +24,8 @@ public class Updatecontroller {
 	private UpdateInterface updateinterface;
 	
 	 @GetMapping("/update")
-	public UpdateResponseDTO updatePage(@RequestParam int id) {
-		 UpdateResponseDTO product = updateinterface.showUpdate(id); 
+	public UpdateResponseDTO updatePage(@RequestParam("productId") int productId) {
+		 UpdateResponseDTO product = updateinterface.showUpdate(productId); 
 		
         return product;  
     }
@@ -35,8 +35,8 @@ public class Updatecontroller {
 		 return showdata; 
 	 }
 	 @DeleteMapping("/delete")
-	 public boolean deleteProduct(@RequestParam int id) {
-		 boolean deletedata=updateinterface.deleteById(id);
+	 public boolean deleteProduct(@RequestParam int productId) {
+		 boolean deletedata=updateinterface.deleteById(productId);
 	     return deletedata;
 	 }
 
