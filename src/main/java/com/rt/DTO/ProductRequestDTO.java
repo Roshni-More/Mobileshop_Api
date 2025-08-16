@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequestDTO {
-
+	private int ProductId;
 	private String name;
     private String brand;
     private String imei;

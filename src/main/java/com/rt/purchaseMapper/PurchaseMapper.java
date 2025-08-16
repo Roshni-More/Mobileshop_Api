@@ -23,7 +23,6 @@ public class PurchaseMapper {
     	p.setSell(purchase.getSell());
     	p.setTotal(purchase.getTotal());
     	p.setPurchaseDate(purchase.getPurchaseDate());
-  
     	return p;  
     }
     public Purchase toEntity(PurchaseRequestDTO dto,Vendor vendor, ProductEntity product) {

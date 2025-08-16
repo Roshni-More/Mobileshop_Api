@@ -1,6 +1,6 @@
 package com.rt.DTO;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,18 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public class SaleRequestDTO {
 
-public class PurchaseRequestDTO {
-
-	private int Purchaseid;
-	private int vendorid;
+	private int CustomerId;
 	private int productId;
-	 private String productName;
 	private int quantity;
-	private float rate;
-	private float sell;
-	private float total;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date purchaseDate; 
-	
+	private LocalDate saleDate;
 }

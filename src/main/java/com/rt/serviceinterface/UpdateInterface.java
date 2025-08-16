@@ -6,10 +6,10 @@ import com.rt.DTO.UpdateResponseDTO;
 
 public  interface UpdateInterface {
 
-	UpdateResponseDTO showUpdate(int id);
+	UpdateResponseDTO showUpdate(int productId);
 
 	UpdateResponseDTO showinsertdata(UpdateRequestDTO updatereqdto);
 
-	boolean deleteById(int id);
+	boolean deleteById(int productId);
 
 }
