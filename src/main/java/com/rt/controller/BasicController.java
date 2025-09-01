@@ -10,18 +10,18 @@ import com.rt.DTO.SignupRequestDTO;
 import com.rt.DTO.SignupResponseDTO;
 import com.rt.serviceimp.SignupImp;
 
-
 @RestController
 @CrossOrigin("*")
 public class BasicController {
-	
-	  @Autowired 
-	  private SignupImp signupImp;
-	 
+
+	@Autowired
+	private SignupImp signupImp;
+
 	@PostMapping("/signup")
 	public SignupResponseDTO signupdata(@RequestBody SignupRequestDTO signupdto) {
-		SignupResponseDTO isadd=signupImp.addData(signupdto);
-		
+		SignupResponseDTO isadd = signupImp.addData(signupdto);
+		System.out.println("Hi");
 		return isadd;
+
 	}
 }

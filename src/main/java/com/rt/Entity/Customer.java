@@ -6,13 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class Customer {
 
 	@Id
@@ -21,16 +17,16 @@ public class Customer {
 	@Column
 	private String customerName;
 	@Column
-    private String mobileno;
+	private String mobileno;
 	@Column
-    private String email;
+	private String email;
 	@Column
-    private String address;
+	private String address;
+
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	public Customer(int customerId, String customerName, String mobileno, String email, String address) {
 		super();
 		CustomerId = customerId;
@@ -40,36 +36,44 @@ public class Customer {
 		this.address = address;
 	}
 
-
 	public int getCustomerId() {
 		return CustomerId;
 	}
+
 	public void setCustomerId(int customerId) {
 		CustomerId = customerId;
 	}
+
 	public String getCustomerName() {
 		return customerName;
 	}
+
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
+
 	public String getMobileno() {
 		return mobileno;
 	}
+
 	public void setMobileno(String mobileno) {
 		this.mobileno = mobileno;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 }
