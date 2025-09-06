@@ -11,6 +11,8 @@ public interface SaleInterface {
 
 	List<SaleResponseDTO> getAllPrducts();
 
-	
+	SaleResponseDTO getSaleById(int id);
+
+	SaleResponseDTO updateSale(SaleRequestDTO request);
 
 }

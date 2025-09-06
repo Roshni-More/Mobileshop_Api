@@ -12,10 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaleRequestDTO {
-
+	private int saleId;
 	private int CustomerId;
 	private int productId;
 	private int quantity;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate saleDate;
+
 }
