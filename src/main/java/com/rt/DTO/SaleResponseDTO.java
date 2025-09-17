@@ -13,7 +13,7 @@ public class SaleResponseDTO {
 
 	private int saleId;
 	private String customerName;
-	private String product;
+	private String productName;
 	private int quantity;
 	private LocalDate saleDate;
 

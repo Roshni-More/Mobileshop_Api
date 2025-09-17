@@ -1,6 +1,7 @@
 package com.rt.Entity;
 
 import java.time.LocalDate;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
@@ -20,21 +21,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "sales")
 public class Sales {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int saleId;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "product_id")
-    private ProductEntity product;
-	
+	@JoinColumn(name = "product_id")
+	private ProductEntity product;
+
 	@ManyToOne
-    @JoinColumn(name="customer_id")
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
-	
+
 	private int quantity;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate saleDate;
-	
+	private boolean isDeleted = false;
+
 }

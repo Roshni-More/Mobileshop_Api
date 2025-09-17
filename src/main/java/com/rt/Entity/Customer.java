@@ -22,18 +22,21 @@ public class Customer {
 	private String email;
 	@Column
 	private String address;
+	private boolean isDeleted = false;
 
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerId, String customerName, String mobileno, String email, String address) {
+	public Customer(int customerId, String customerName, String mobileno, String email, String address,
+			boolean isDeleted) {
 		super();
 		CustomerId = customerId;
 		this.customerName = customerName;
 		this.mobileno = mobileno;
 		this.email = email;
 		this.address = address;
+		this.isDeleted = isDeleted;
 	}
 
 	public int getCustomerId() {
@@ -74,6 +77,14 @@ public class Customer {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

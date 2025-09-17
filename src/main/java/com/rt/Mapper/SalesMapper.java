@@ -11,26 +11,24 @@ import com.rt.Entity.Sales;
 @Component
 public class SalesMapper {
 
-    public Sales toEntity(SaleRequestDTO dto, ProductEntity product, Customer customer) {
-        Sales sale = new Sales();
-        sale.setQuantity(dto.getQuantity());
-        sale.setSaleDate(dto.getSaleDate());
-        sale.setProduct(product);
-        sale.setCustomer(customer);
-        return sale;
-    }
-
-    public SaleResponseDTO toDto(Sales sale) {
-        SaleResponseDTO dto = new SaleResponseDTO();
-        dto.setSaleId(sale.getSaleId());
-        dto.setQuantity(sale.getQuantity());
-        dto.setSaleDate(sale.getSaleDate());
-		
-		 dto.setProductName(sale.getProduct().getName());
-		 dto.setCustomerName(sale.getCustomer().getCustomerName());
-	
-        return dto;
-    }
-
+	public Sales toEntity(SaleRequestDTO dto, ProductEntity product, Customer customer) {
+		Sales sale = new Sales();
+		sale.setQuantity(dto.getQuantity());
+		sale.setSaleDate(dto.getSaleDate());
+		sale.setProduct(product);
+		sale.setCustomer(customer);
+		return sale;
 	}
 
+	public SaleResponseDTO toDto(Sales sale) {
+		SaleResponseDTO dto = new SaleResponseDTO();
+		dto.setSaleId(sale.getSaleId());
+		dto.setQuantity(sale.getQuantity());
+		dto.setSaleDate(sale.getSaleDate());
+		dto.setProductName(sale.getProduct().getName());
+		dto.setCustomerName(sale.getCustomer().getCustomerName());
+
+		return dto;
+	}
+
+}

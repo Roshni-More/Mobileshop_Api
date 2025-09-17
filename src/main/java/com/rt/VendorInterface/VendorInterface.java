@@ -17,4 +17,6 @@ public interface VendorInterface {
 
 	public VendorUpdateRespDTO displaydata(VendorUpdateReqDTO updatedto);
 
+	public boolean deleteById(int vendorid);
+
 }

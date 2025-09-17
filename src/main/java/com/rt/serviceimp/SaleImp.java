@@ -2,6 +2,7 @@ package com.rt.serviceimp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import com.rt.Entity.ProductEntity;
 import com.rt.Entity.Sales;
 import com.rt.Mapper.SalesMapper;
 import com.rt.serviceinterface.SaleInterface;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class SaleImp implements SaleInterface {
@@ -47,7 +50,7 @@ public class SaleImp implements SaleInterface {
 
 	@Override
 	public List<SaleResponseDTO> getAllPrducts() {
-		List<Sales> entityList = salesdao.findAll();
+		List<Sales> entityList = salesdao.findByIsDeletedFalse();
 		List<SaleResponseDTO> dtoList = new ArrayList<>();
 
 		for (Sales sale : entityList) {
@@ -60,36 +63,45 @@ public class SaleImp implements SaleInterface {
 
 	@Override
 	public SaleResponseDTO getSaleById(int id) {
-		Sales sale = salesdao.findBySaleid(id).orElseThrow(() -> new RuntimeException("Sale not found with id " + id));
+		Sales sale = salesdao.findBySaleId(id).orElseThrow(() -> new RuntimeException("Sale not found with id " + id));
 
 		return new SaleResponseDTO(sale.getSaleId(), sale.getCustomer().getCustomerName(), sale.getProduct().getName(),
 				sale.getQuantity(), sale.getSaleDate());
 	}
 
 	@Override
-	public SaleResponseDTO updateSale(SaleRequestDTO request) {
-		Sales sale = salesdao.findById(request.getSaleId())
-				.orElseThrow(() -> new RuntimeException("Sale not found with id " + request.getSaleId()));
+	public SaleResponseDTO updateSale(SaleRequestDTO saleRequest) {
+		Sales sale = salesdao.findBySaleId(saleRequest.getSaleId())
+				.orElseThrow(() -> new EntityNotFoundException("Sale not found with id " + saleRequest.getSaleId()));
 
-		// update values
-		sale.setQuantity(request.getQuantity());
-		sale.setSaleDate(request.getSaleDate());
+		Customer customer = customerdao.findById(saleRequest.getCustomerId()).orElseThrow(
+				() -> new EntityNotFoundException("Customer not found with id " + saleRequest.getCustomerId()));
 
-		// update relations
-		if (request.getCustomerId() != 0) {
-			sale.setCustomer(customerdao.findById(request.getCustomerId())
-					.orElseThrow(() -> new RuntimeException("Customer not found")));
+		ProductEntity product = productdao.findById(saleRequest.getProductId()).orElseThrow(
+				() -> new EntityNotFoundException("Product not found with id " + saleRequest.getProductId()));
+
+		sale.setQuantity(saleRequest.getQuantity());
+		sale.setSaleDate(saleRequest.getSaleDate());
+		sale.setCustomer(customer);
+
+		sale.setProduct(product);
+
+		Sales updated = salesdao.save(sale);
+
+		return new SaleResponseDTO(updated.getSaleId(), updated.getCustomer().getCustomerName(),
+				updated.getProduct().getName(), updated.getQuantity(), updated.getSaleDate());
+	}
+
+	@Override
+	public boolean deleteById(int saleId) {
+		Optional<Sales> optionalSales = salesdao.findById(saleId);
+		if (optionalSales.isPresent()) {
+			Sales sales = optionalSales.get();
+			sales.setDeleted(true);
+			salesdao.save(sales);
+			return true;
 		}
-
-		if (request.getProductId() != 0) {
-			sale.setProduct(productdao.findById(request.getProductId())
-					.orElseThrow(() -> new RuntimeException("Product not found")));
-		}
-
-		Sales updatedSale = salesdao.save(sale);
-
-		return new SaleResponseDTO(updatedSale.getSaleId(), updatedSale.getCustomer().getCustomerName(),
-				updatedSale.getProduct().getName(), updatedSale.getQuantity(), updatedSale.getSaleDate());
+		return false;
 	}
 
 }

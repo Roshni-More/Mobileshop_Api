@@ -9,12 +9,13 @@ import com.rt.Entity.Vendor;
 @Component
 public class VendorUpdateMapper {
 	public VendorUpdateRespDTO toDto(Vendor vendor) {
-		return new VendorUpdateRespDTO(vendor.getVendorid(),vendor.getVendorname(),vendor.getMobileno());
-		
+		return new VendorUpdateRespDTO(vendor.getVendorid(), vendor.getVendorname(), vendor.getMobileno());
+
 	}
+
 	public Vendor toEntity(VendorUpdateReqDTO reqdto) {
-		return new Vendor(reqdto.getVendorid(),reqdto.getVendorname(),reqdto.getMobileno());
-		
+		return new Vendor(reqdto.getVendorid(), reqdto.getVendorname(), reqdto.getMobileno(), false);
+
 	}
 
 }

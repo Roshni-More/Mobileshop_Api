@@ -15,4 +15,6 @@ public interface SaleInterface {
 
 	SaleResponseDTO updateSale(SaleRequestDTO request);
 
+	boolean deleteById(int saleId);
+
 }

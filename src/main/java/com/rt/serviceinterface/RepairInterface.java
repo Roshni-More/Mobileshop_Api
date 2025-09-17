@@ -10,4 +10,6 @@ public interface RepairInterface {
 
 	List<RepairRespDTO> getallproducts();
 
+	boolean deleteById(int repairId);
+
 }

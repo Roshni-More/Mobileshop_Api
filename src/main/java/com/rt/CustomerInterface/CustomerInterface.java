@@ -15,4 +15,6 @@ public interface CustomerInterface {
 
 	CustomerResponseDTO showupdatedata(CustomerRequestDTO customerdto);
 
+	boolean deleteById(int customerId);
+
 }

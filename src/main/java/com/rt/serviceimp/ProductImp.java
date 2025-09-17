@@ -2,6 +2,7 @@ package com.rt.serviceimp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,51 +16,61 @@ import com.rt.Mapper.ProductMapper;
 import com.rt.serviceinterface.ProductInterface;
 
 @Service
-public class ProductImp implements ProductInterface{
+public class ProductImp implements ProductInterface {
 	@Autowired
 	private ProductDao productdao;
-	
+
 	@Autowired
 	private PurchaseDao purchaseDao;
-	
+
 	@Autowired
 	private ProductMapper productmapper;
 
 	@Override
 	public ProductResponseDTO productinsert(ProductRequestDTO productdto) {
-		ProductEntity entity=productmapper.toEntity(productdto);
-		ProductEntity dataadd=productdao.save(entity);
-		ProductResponseDTO respdto=productmapper.toDto(dataadd);
+		ProductEntity entity = productmapper.toEntity(productdto);
+		ProductEntity dataadd = productdao.save(entity);
+		ProductResponseDTO respdto = productmapper.toDto(dataadd);
 		return respdto;
-		
+
 	}
 
 	@Override
 	public List<ProductResponseDTO> getAllProducts() {
-	    List<ProductEntity> entityList = productdao.findAll();
-	    List<ProductResponseDTO> dtoList = new ArrayList<>();
+		List<ProductEntity> entityList = productdao.findByIsDeletedFalse();
+		List<ProductResponseDTO> dtoList = new ArrayList<>();
 
-	    for (ProductEntity entity : entityList) {
-	        ProductResponseDTO dto = new ProductResponseDTO();
-	        dto.setProductId(entity.getProductId());
-	        dto.setName(entity.getName());
-	        dto.setBrand(entity.getBrand());
-	        dto.setImei(entity.getImei());
+		for (ProductEntity entity : entityList) {
+			ProductResponseDTO dto = new ProductResponseDTO();
+			dto.setProductId(entity.getProductId());
+			dto.setName(entity.getName());
+			dto.setBrand(entity.getBrand());
+			dto.setImei(entity.getImei());
 
-	        // 🔄 Add logic to fetch total quantity from purchase table
-	        Integer totalQuantity = purchaseDao.getTotalQuantityByProductId(entity.getProductId());
-	        if (totalQuantity == null) {
-	            totalQuantity = 0;
-	        }
-	        
-	        
-	        dto.setStock(totalQuantity);
-	        dtoList.add(dto);
-	        System.out.println("Product: " + entity.getName() + ", Stock: " + totalQuantity);
-	    }
+			// 🔄 Add logic to fetch total quantity from purchase table
+			Integer totalQuantity = purchaseDao.getTotalQuantityByProductId(entity.getProductId());
+			if (totalQuantity == null) {
+				totalQuantity = 0;
+			}
 
-	    return dtoList;
+			dto.setStock(totalQuantity);
+			dtoList.add(dto);
+			System.out.println("Product: " + entity.getName() + ", Stock: " + totalQuantity);
+		}
+
+		return dtoList;
 	}
 
+	@Override
+	public boolean deleteById(int productId) {
+		Optional<ProductEntity> optionalProduct = productdao.findById(productId);
+		if (optionalProduct.isPresent()) {
+			ProductEntity product = optionalProduct.get();
+			product.setDeleted(true);
+			productdao.save(product);
+			return true;
+		}
+		return false;
+	}
 
 }

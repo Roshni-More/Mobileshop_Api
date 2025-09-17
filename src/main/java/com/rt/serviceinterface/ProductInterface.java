@@ -10,9 +10,10 @@ import com.rt.DTO.ProductResponseDTO;
 @Service
 public interface ProductInterface {
 
- ProductResponseDTO productinsert(ProductRequestDTO productdto);
+	ProductResponseDTO productinsert(ProductRequestDTO productdto);
 
-List<ProductResponseDTO> getAllProducts();	
-	
+	List<ProductResponseDTO> getAllProducts();
+
+	boolean deleteById(int productId);
 
 }

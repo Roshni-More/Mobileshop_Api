@@ -14,23 +14,25 @@ public class ProductEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
 	private int productId;
-	@Column
+	@Column(name = "name")
 	private String name;
 	@Column
 	private String brand;
 	@Column
 	private String imei;
+	private boolean isDeleted = false;
 
 	public ProductEntity() {
 
 	}
 
-	public ProductEntity(int productId, String name, String brand, String imei) {
+	public ProductEntity(int productId, String name, String brand, String imei, boolean isDeleted) {
 		super();
 		this.productId = productId;
 		this.name = name;
 		this.brand = brand;
 		this.imei = imei;
+		this.isDeleted = isDeleted;
 	}
 
 	public int getProductId() {
@@ -63,6 +65,14 @@ public class ProductEntity {
 
 	public void setImei(String imei) {
 		this.imei = imei;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

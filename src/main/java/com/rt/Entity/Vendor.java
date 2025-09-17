@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="vendor")
+@Table(name = "vendor")
 public class Vendor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class Vendor {
 	@Column
 	private String vendorname;
 	@Column
-    private String mobileno;
+	private String mobileno;
+	private boolean isDeleted = false;
 
 }

@@ -8,12 +8,15 @@ import com.rt.Entity.ProductEntity;
 
 @Component
 public class ProductMapper {
-	
+
 	public ProductResponseDTO toDto(ProductEntity productuser) {
-		return new ProductResponseDTO(productuser.getProductId(),productuser.getName(),productuser.getBrand(),productuser.getImei());
+		return new ProductResponseDTO(productuser.getProductId(), productuser.getName(), productuser.getBrand(),
+				productuser.getImei());
 	}
-public ProductEntity toEntity(ProductRequestDTO productdto) {
-	return new ProductEntity( productdto.getProductId(), productdto.getName(),productdto.getBrand(),productdto.getImei());
+
+	public ProductEntity toEntity(ProductRequestDTO productdto) {
+		return new ProductEntity(productdto.getProductId(), productdto.getName(), productdto.getBrand(),
+				productdto.getImei(), false);
 	}
-	
+
 }

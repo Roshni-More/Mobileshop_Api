@@ -16,6 +16,7 @@ public class SaleRequestDTO {
 	private int CustomerId;
 	private int productId;
 	private int quantity;
+	private String customerName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate saleDate;
 
