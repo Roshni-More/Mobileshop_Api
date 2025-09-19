@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rt.DTO.RepairReqDTO;
 import com.rt.DTO.RepairRespDTO;
 import com.rt.serviceinterface.RepairInterface;
 
@@ -32,6 +34,17 @@ public class RepairController {
 		List<RepairRespDTO> repairproduct = repairinterface.getallproducts();
 		return repairproduct;
 	}
+	
+	@GetMapping("/api/updaterepairdata/{repairId}")
+	public RepairRespDTO updatepage(@PathVariable("repairId") int repairId) {
+	    return repairinterface.showupdate(repairId);
+	}
+	
+	@PostMapping("/selectupdate")
+	public RepairRespDTO showupdate(@RequestBody RepairReqDTO repairreqdto) {
+		RepairRespDTO updatedata=repairinterface.showdata(repairreqdto);
+		return updatedata;
+      }
 
 	@DeleteMapping("/api/repair/deleted/{repairId}")
 	public boolean deleteProduct(@PathVariable int repairId) {

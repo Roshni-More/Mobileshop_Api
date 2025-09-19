@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rt.DTO.RepairReqDTO;
 import com.rt.DTO.RepairRespDTO;
 import com.rt.Dao.RepairDao;
 import com.rt.Entity.Repair;
@@ -64,4 +65,23 @@ public class RepairImp implements RepairInterface {
 		return false;
 	}
 
-}
+	@Override
+	public RepairRespDTO showupdate(int repairId) {
+	Optional<Repair> optionalRepair = repairdao.findById(repairId);
+	if (optionalRepair.isPresent()) {
+		Repair repairentity=optionalRepair.get();
+		RepairRespDTO resdto=repairmapper.toDto(repairentity);
+		return resdto;
+	}
+		return null;
+	}
+
+	@Override
+	public RepairRespDTO showdata(RepairReqDTO repairreqdto) {
+		Repair entity = repairmapper.toEntity(repairreqdto); // uses ReqDTO
+	    Repair dataadd = repairdao.save(entity);
+	    return repairmapper.toDto(dataadd); // returns RespDTO
+	}
+
+	}
+
